@@ -19,3 +19,7 @@
 ### 各文字の符号の算出
 
 ### データの符号化
+
+#### 参考資料
+https://daeudaeu.com/programming/c-language/huffman_encode/
+https://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%95%E3%83%9E%E3%83%B3%E7%AC%A6%E5%8F%B7
