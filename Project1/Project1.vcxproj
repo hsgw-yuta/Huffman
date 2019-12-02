@@ -115,9 +115,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="makeHuffmanCode.cpp" />
+    <ClCompile Include="makeHuffmanTree.cpp" />
+    <ClCompile Include="makeNode.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="makeHuffmanCode.h" />
+    <ClInclude Include="makeHuffmanTree.h" />
+    <ClInclude Include="makeNode.h" />
+    <ClInclude Include="data.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
