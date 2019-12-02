@@ -1,11 +1,11 @@
 #include"makeNode.h"
 
 /*
-* ŠÖ” : searchNode
-* @param  chr   : ŒŸõNODE
-* @param  node  : ŒŸõ‘ÎÛ•¶š
-* @return NODE* : ŒŸõ”­Œ©NODE
-* ŠT—v : ‘æ“ñˆø”‚Ì•¶š‚ªŠi”[‚³‚ê‚Ä‚¢‚éNODE‚ğŒŸõ
+* é–¢æ•° : searchNode
+* @param  chr   : æ¤œç´¢NODE
+* @param  node  : æ¤œç´¢å¯¾è±¡æ–‡å­—
+* @return NODE* : æ¤œç´¢ç™ºè¦‹NODE
+* æ¦‚è¦ : ç¬¬äºŒå¼•æ•°ã®æ–‡å­—ãŒæ ¼ç´ã•ã‚Œã¦ã„ã‚‹NODEã‚’æ¤œç´¢
 */
 NODE *searchNode(NODE *node, char chr)
 {
@@ -21,14 +21,14 @@ NODE *searchNode(NODE *node, char chr)
 }
 
 /*
-* ŠÖ” : newNode
-* @param  chr   : Ši”[•¶š
-* @return NODE* : V‹K¶¬NODE
-* ŠT—v : V‹K‚ÌNODE‚ğ¶¬‚µAˆø”‚Ì•¶š‚ğŠi”[/‰Šú‰»
+* é–¢æ•° : newNode
+* @param  chr   : æ ¼ç´æ–‡å­—
+* @return NODE* : æ–°è¦ç”ŸæˆNODE
+* æ¦‚è¦ : æ–°è¦ã®NODEã‚’ç”Ÿæˆã—ã€å¼•æ•°ã®æ–‡å­—ã‚’æ ¼ç´/åˆæœŸåŒ–
 */
 NODE *newNode(char chr)
 {
-	// V‹KNODE(return—p)
+	// æ–°è¦NODE(returnç”¨)
 	NODE *node;
 
 	node = (NODE*)malloc(sizeof(NODE));
@@ -51,18 +51,19 @@ NODE *newNode(char chr)
 
 
 /*
-* ŠÖ” : makeNodes
-* @param  inputstr  : ŒŸõ•¶š—ñ‚Ìæ“ªAddress
-* @return NODE*     : æ“ª‚ÌNODEAddress
-* ŠT—v : Še•¶š‚É‘Î‚·‚éNODE‚ğ¶¬
+* é–¢æ•° : makeNodes
+* @param  inputstr  : æ¤œç´¢æ–‡å­—åˆ—ã®å…ˆé ­Address
+
+* @return NODE*     : å…ˆé ­ã®NODEAddress
+* æ¦‚è¦ : å„æ–‡å­—ã«å¯¾ã™ã‚‹NODEã‚’ç”Ÿæˆ
 */
 NODE *makeNodes(char *instr,long strlen)
 {
 
-	NODE *head;		// æ“ªNODE
-	NODE *tail;		// ––’[NODE
-	NODE *add;      // V‹KResNODE
-	NODE *search;   // ’TõResNODE
+	NODE *head;		// å…ˆé ­NODE
+	NODE *tail;		// æœ«ç«¯NODE
+	NODE *add;      // æ–°è¦ResNODE
+	NODE *search;   // æ¢ç´¢ResNODE
 
 	// init
 	char chr = NULL;
@@ -70,19 +71,19 @@ NODE *makeNodes(char *instr,long strlen)
 	tail = NULL;
 	long i = 0;
 
-	// ‘S•¶š“Ç‚İæ‚è
+	// å…¨æ–‡å­—èª­ã¿å–ã‚Š
 	while (i < strlen)
 	{
-		// ˆê•¶š“Ç‚İæ‚è
+		// ä¸€æ–‡å­—èª­ã¿å–ã‚Š
 		chr = *(instr + i);
 
-		// æ“¾•¶š‚É‘Î‚·‚éß‚ğ’Tõi“¯‚¶•¶š‚ª‚ ‚é‚©‚Ç‚¤‚©j 
+		// å–å¾—æ–‡å­—ã«å¯¾ã™ã‚‹ç¯€ã‚’æ¢ç´¢ï¼ˆåŒã˜æ–‡å­—ãŒã‚ã‚‹ã‹ã©ã†ã‹ï¼‰ 
 		search = searchNode(head, chr);
 
-		// “¯ˆê•¶š‚ª–³‚¢ê‡
+		// åŒä¸€æ–‡å­—ãŒç„¡ã„å ´åˆ
 		if (search == NULL)
 		{
-			// V‚µ‚­ß‚ğ’Ç‰Á 
+			// æ–°ã—ãç¯€ã‚’è¿½åŠ  
 			add = newNode(chr);
 
 			if (add == NULL)
@@ -91,12 +92,14 @@ NODE *makeNodes(char *instr,long strlen)
 				return NULL;
 			}
 
-			// ˆê‚Â‚àNODE‚ª–³‚¢AV‹KNODE‚ğİ’è‚·‚é
+			// ä¸€ã¤ã‚‚NODEãŒç„¡ã„æ™‚ã€æ–°è¦NODEã‚’è¨­å®šã™ã‚‹
+
 			if (head == NULL)
 			{
 				head = add;
 				tail = add;
 			}
+
 			else 
 			{
 				tail->next = add;
@@ -105,12 +108,13 @@ NODE *makeNodes(char *instr,long strlen)
 		}
 		else
 		{
-			// oŒ»‰ñ”‚ÌƒJƒEƒ“ƒg
+
+			// å‡ºç¾å›æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
 			search->count++;
 		}
 
 		i++;
-
+    
 	}
 	return head;
 }

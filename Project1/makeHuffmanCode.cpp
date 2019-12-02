@@ -2,32 +2,32 @@
 
 
 /*
-* �֐� : makeHuffmanCode
-* @param  *node : �񕪖�NODE
-* @return CODE* : ������List
-* �T�v : �e�����̕����̎Z�o
+* 関数 : makeHuffmanCode
+* @param  *node : 二分木NODE
+* @return CODE* : 符号化List
+* 概要 : 各文字の符号の算出
 */
 CODE *makeHuffmanCode(NODE *node)
 {
-	NODE *child = NULL;   // �qNODE
-	NODE *parent = NULL;  // �eNODE
-	CODE *code = NULL;    // �����f�[�^
-	CODE *top = NULL;     // �����f�[�^�擪
-	CODE *add = NULL;     // �V�K�����f�[�^
+	NODE *child = NULL;   // 子NODE
+	NODE *parent = NULL;  // 親NODE
+	CODE *code = NULL;    // 符号データ
+	CODE *top = NULL;     // 符号データ先頭
+	CODE *add = NULL;     // 新規符号データ
 
-	// ����CODE���f�[�^
+	// 符号CODE内データ
 	int value;
 	int bit;
 
-	// �t�̂��ׂĂɕ��������蓖�Ă�
+	// 葉のすべてに符号を割り当てる
 	while (node != NULL && node->chr != '\0')
 	{
 
-		// �����Ƃ��̃r�b�g����0�ɏ�����
+		// 符号とそのビット数を0に初期化
 		value = 0;
 		bit = 0;
 
-		// �V�KCODE����
+		// 新規CODE生成
 		add = (CODE*)malloc(sizeof(CODE));
 		if (add == NULL)
 		{
@@ -35,46 +35,46 @@ CODE *makeHuffmanCode(NODE *node)
 			return NULL;
 		}
 
-		// �ǉ�CODE�ɕ������Z�b�g����
+		// 追加CODEに文字をセットする
 		add->chr = node->chr;
 
-		// ���݃X�|�b�g����Ă���NODE�̑ޔ�
+		// 現在スポットされているNODEの退避
 		child = node;
 
-		// ���݃X�|�b�g����Ă���eNODE�ւ̃|�C���^ 
+		// 現在スポットされている親NODEへのポインタ 
 		parent = node->parent;
 
-		// �t���獪�܂Őe�������̂ڂ� 
+		// 葉から根まで親をさかのぼる 
 		while (parent != NULL)
 		{
 
-			// �e����̐�
+			// 親からの節
 			if (parent->left == child) 
 			{
-				// �r�b�g��ivalue�j�̈�ԍ��փr�b�g0��ǉ� 
+				// ビット列（value）の一番左へビット0を追加 
 				value = value + (0 << bit);
 			}
 			else if (parent->right == child) 
 			{
-				// �r�b�g��ivalue�j�̈�ԍ��փr�b�g1��ǉ� 
+				// ビット列（value）の一番左へビット1を追加 
 				value = value + (1 << bit);
 			}
 
-			// bit�����C���N�������g
+			// bit数をインクリメント
 			bit++;
 
-			// ���݃X�|�b�g�̍X�V
+			// 現在スポットの更新
 			child = parent;
 
-			// �e�̍X�V
+			// 親の更新
 			parent = parent->parent;
 		}
 
-		// �V�KCODE�ւ̒l�Z�b�g
+		// 新規CODEへの値セット
 		add->value = value;
 		add->bit = bit;
 
-		// CODE�\���̂����łɂ���ꍇ�͍Ō���ɒǉ�
+		// CODE構造体がすでにある場合は最後尾に追加
 		if (code == NULL) 
 		{
 			code = add;
@@ -86,7 +86,7 @@ CODE *makeHuffmanCode(NODE *node)
 			code = code->next;
 		}
 
-		// NODE�̃C���N�������g
+		// NODEのインクリメント
 		node = node->next;
 	}
 

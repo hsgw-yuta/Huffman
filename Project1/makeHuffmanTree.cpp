@@ -1,41 +1,41 @@
 #include"makeHuffmanTree.h"
 
 /*
-* ŠÖ” : makeHuffmanTree
-* @param  head  : List‚ÌI’[Address
-* ŠT—v : “ñ•ª–Ø¶¬
+* é–¢æ•° : makeHuffmanTree
+* @param  head  : Listã®çµ‚ç«¯Address
+* æ¦‚è¦ : äºŒåˆ†æœ¨ç”Ÿæˆ
 */
 void makeHuffmanTree(NODE *head)
 {
-	NODE *first = NULL;    // oŒ»‰ñ”Å¬NODE
-	NODE *second = NULL;   // oŒ»‰ñ”2”Ô–ÚNODE
-	NODE *tail = NULL;     // ÅŒã”öNODE
-	NODE *add = NULL;      // V‹KNODE
+	NODE *first = NULL;    // å‡ºç¾å›žæ•°æœ€å°NODE
+	NODE *second = NULL;   // å‡ºç¾å›žæ•°2ç•ªç›®NODE
+	NODE *tail = NULL;     // æœ€å¾Œå°¾NODE
+	NODE *add = NULL;      // æ–°è¦NODE
 
-	// æ“ª‚Ìß‚ÌŠm”F
+	// å…ˆé ­ã®ç¯€ã®ç¢ºèª
 	if (head == NULL)
 	{
 		printf("head null");
 		return;
 	}
 
-	// ƒŠƒXƒg‚ÌI’[‚Ü‚Åtail‚ðˆÚ“® 
+	// ãƒªã‚¹ãƒˆã®çµ‚ç«¯ã¾ã§tailã‚’ç§»å‹• 
 	tail = head;
-
-	// tail‚ÌŒã‚ë‚É’Ç‰Á‚µ‚Ä‚¢‚­
+  
+	// tailã®å¾Œã‚ã«è¿½åŠ ã—ã¦ã„ã
 	while (tail->next != NULL)
 	{
 		tail = tail->next;
 	}
 
-	// oŒ»‰ñ”‚Ì­‚È‚¢ãˆÊ2‚Â‚ðŽæ“¾
+	// å‡ºç¾å›žæ•°ã®å°‘ãªã„ä¸Šä½2ã¤ã‚’å–å¾—
 	getAppearance(&first, &second, head);
 
-	// e‚Ì‚¢‚È‚¢ß‚ª‚Q‚Â–¢–ž‚É‚È‚é‚Ü‚Å
+	// è¦ªã®ã„ãªã„ç¯€ãŒï¼’ã¤æœªæº€ã«ãªã‚‹ã¾ã§
 	// 
 	while (first != NULL && second != NULL)
 	{
-		// “ñ‚ÂˆÈã‚ ‚é‚Ì‚ÅAeNODE‚ðì¬‚·‚é
+		// äºŒã¤ä»¥ä¸Šã‚ã‚‹ã®ã§ã€è¦ªNODEã‚’ä½œæˆã™ã‚‹
 		add = newNode('\0');
 
 		if (add == NULL)
@@ -44,39 +44,39 @@ void makeHuffmanTree(NODE *head)
 			return;
 		}
 
-		// eNODE init
+		// è¦ªNODE init
 		first->parent = add;
 		second->parent = add;
 		add->left = first;
 		add->right = second;
-		// count‚Ì‡Œv
+
+		// countã®åˆè¨ˆ
 		add->count = first->count + second->count;
 
-		// List‚ÌI’[‚É’Ç‰Á
+		// Listã®çµ‚ç«¯ã«è¿½åŠ 
 		tail->next = add;
 		tail = add;
-
 		getAppearance(&first, &second, head);
 	}
 }
 
 /*
-* ŠÖ” : getAppearance
-* @param  *first : oŒ»‰ñ”Å¬
-* @param  *scond : oŒ»‰ñ”2”Ô–Ú
-* @param  head  : List‚Ìæ“ªaddress
-* ŠT—v : ˆê”Ô–Ú‚Æ“ñ”Ô‚ÉoŒ»‰ñ”oŒ»‰ñ”‚ª­‚È‚¢NODE‚ÌŽæ‚èo‚µ
+* é–¢æ•° : getAppearance
+* @param  *first : å‡ºç¾å›žæ•°æœ€å°
+* @param  *scond : å‡ºç¾å›žæ•°2ç•ªç›®
+* @param  head  : Listã®å…ˆé ­address
+* æ¦‚è¦ : ä¸€ç•ªç›®ã¨äºŒç•ªã«å‡ºç¾å›žæ•°å‡ºç¾å›žæ•°ãŒå°‘ãªã„NODEã®å–ã‚Šå‡ºã—
 */
 void getAppearance(NODE **first, NODE **scond, NODE *head) 
 {
 	unsigned int firstNum = 99999;
 	unsigned int secondNum = 99999;
 
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	*first = NULL;
 	*scond = NULL;
 
-	// ƒŠƒXƒg‚Ìæ“ª‚©‚ç’Tõ (SORT)
+	// ãƒªã‚¹ãƒˆã®å…ˆé ­ã‹ã‚‰æŽ¢ç´¢ (SORT)
 	while (head != NULL) 
 	{
 		if (head->parent == NULL) 
