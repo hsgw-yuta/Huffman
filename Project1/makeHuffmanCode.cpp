@@ -1,83 +1,92 @@
 #include"makeHuffmanCode.h"
 
 
-CODE *makeHuffmanCode(NODE *node) {
+/*
+* 関数 : makeHuffmanCode
+* @param  *node : 二分木NODE
+* @return CODE* : 符号化List
+* 概要 : 各文字の符号の算出
+*/
+CODE *makeHuffmanCode(NODE *node)
+{
+	NODE *child = NULL;   // 子NODE
+	NODE *parent = NULL;  // 親NODE
+	CODE *code = NULL;    // 符号データ
+	CODE *top = NULL;     // 符号データ先頭
+	CODE *add = NULL;     // 新規符号データ
 
-	NODE *child = NULL;
-	NODE *parent = NULL;
-	CODE *code = NULL;
-	CODE *top = NULL;
-	CODE *add = NULL;
-
-	/* ������ */
+	// 符号CODE内データ
 	int value;
 	int bit;
 
+	// 葉のすべてに符号を割り当てる
+	while (node != NULL && node->chr != '\0')
+	{
 
-	/* �t�S�Ăɕ��������蓖�Ă��烋�[�v�I�� */
-	/* �t�ȊO�̐߂̕�����'\0' */
-	while (node != NULL && node->chr != '\0') {
-		/* �����Ƃ��̃r�b�g����0�ɏ����� */
+		// 符号とそのビット数を0に初期化
 		value = 0;
 		bit = 0;
 
-		/* CODE�\���̂�ǉ� */
+		// 新規CODE生成
 		add = (CODE*)malloc(sizeof(CODE));
-		if (add == NULL) {
+		if (add == NULL)
+		{
 			printf("malloc error\n");
 			return NULL;
 		}
 
-		/* �ǉ�����CODE�\���̂̕�����ݒ� */
+		// 追加CODEに文字をセットする
 		add->chr = node->chr;
 
-		/* child�͍����ڂ��Ă���߂ւ̃|�C���^ */
+		// 現在スポットされているNODEの退避
 		child = node;
 
-		/* parent�͍����ڂ��Ă���߂̐e�ւ̃|�C���^ */
+		// 現在スポットされている親NODEへのポインタ 
 		parent = node->parent;
 
-		/* �t���獪�܂Őe��k���Ă��� */
-		/* ���̐߂�parent��NULL */
-		while (parent != NULL) {
-			/* �e���猩�č����ڂ��Ă���߂����̎q�̏ꍇ */
-			if (parent->left == child) {
-				/* �r�b�g��ivalue�j�̈�ԍ��փr�b�g0��ǉ� */
+		// 葉から根まで親をさかのぼる 
+		while (parent != NULL)
+		{
+
+			// 親からの節
+			if (parent->left == child) 
+			{
+				// ビット列（value）の一番左へビット0を追加 
 				value = value + (0 << bit);
-				/* �e���猩�č����ڂ��Ă���߂��E�̎q�̏ꍇ */
 			}
-			else if (parent->right == child) {
-				/* �r�b�g��ivalue�j�̈�ԍ��փr�b�g1��ǉ� */
+			else if (parent->right == child) 
+			{
+				// ビット列（value）の一番左へビット1を追加 
 				value = value + (1 << bit);
 			}
-			/* �r�b�g��̃r�b�g����1���₷ */
+
+			// bit数をインクリメント
 			bit++;
 
-			/* �����ڂ��Ă���߂̐e���A�V���Ȓ��ڐ߂ɍX�V */
+			// 現在スポットの更新
 			child = parent;
 
-			/* �e���e�̐e�ɍX�V */
+			// 親の更新
 			parent = parent->parent;
 		}
 
-		/* ���������ߏI������̂ŁA
-		�ǉ�����CODE�ɕ������̂��̂Ƃ��̃r�b�g����ݒ� */
+		// 新規CODEへの値セット
 		add->value = value;
 		add->bit = bit;
 
-		/* CODE�\���̂��܂�����Ȃ��ꍇ */
-		if (code == NULL) {
+		// CODE構造体がすでにある場合は最後尾に追加
+		if (code == NULL) 
+		{
 			code = add;
 			top = code;
-
-			/* CODE�\���̂����łɂ���ꍇ�͍Ō���ɒǉ� */
 		}
-		else {
+		else
+		{
 			code->next = add;
 			code = code->next;
 		}
 
-		/* ���̐߂ɑ΂��ĕ������Z�o */
+		// NODEのインクリメント
 		node = node->next;
 	}
 

@@ -1,24 +1,29 @@
 #include "Main.h"
 
-
-int main(int argc, char* argv[]) 
+/*
+* é–¢æ•° : main
+* @param  argc     
+* @param  argc[]   
+* @return int 
+*/
+int main(int argc, char* argv[])
 {
 	char str[] = { 'A','B','B','B','C','C','D','E','F','F' };
 
-	// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 	NODE *nodes;
 	CODE *code;
 
-	// NODE¶¬
-	nodes = makeNodes(&str[0]);
+	// NODEç”Ÿæˆ
+	nodes = makeNodes(&str[0], strLength(&str[0]));
 
-	// “ñ•ª–Ø¶¬
+	// äºŒåˆ†æœ¨ç”Ÿæˆ
 	makeHuffmanTree(nodes);
 
-	// ƒnƒtƒ}ƒ“ƒR[ƒh¶¬
+	// ãƒãƒ•ãƒžãƒ³ã‚³ãƒ¼ãƒ‰ç”Ÿæˆ
 	code = makeHuffmanCode(nodes);
 
-	// ƒƒ‚ƒŠŠJ•ú
+	// ãƒ¡ãƒ¢ãƒªé–‹æ”¾
 	freeNode(nodes);
 
 	system("pause");
@@ -26,14 +31,25 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
+long strLength(char *str) {
 
-/* node‚ªæ“ª‚ðŽw‚·NODE\‘¢‘Ì‚ÌƒŠƒXƒg‚ð‘Síœ‚·‚éŠÖ” */
+	long len = 10;
+
+	return len;
+}
+
+
+/*
+* é–¢æ•° : mfreeNodeain
+* @param  node : æ¤œç´¢å¯¾è±¡æ–‡å­—
+* æ¦‚è¦ : NODEã®é–‹æ”¾
+*/
 void freeNode(NODE *node) {
 	NODE *next;
 
 	while (node != NULL) {
 		next = node->next;
-		free(node);
+		free(node);    // é–‹æ”¾
 		node = next;
 	}
 }
